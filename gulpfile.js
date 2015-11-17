@@ -8,11 +8,13 @@ var gulp = require('gulp'),
     csswring = require('csswring'),
     livereload = require('gulp-livereload');
 
-var browserify = require('browserify');
+var babelify = require('babelify');
+var browserify = require('gulp-browserify');
 var fs = require('fs');
+var rename = require('gulp-rename');
 
 var scssAssets = './styles.scss';
-var mainJs = "./src/script.jsx";
+var mainJs = "./src/*.jsx";
 
 gulp.task('sass', function() {
   var processors = [
@@ -30,13 +32,18 @@ gulp.task('sass', function() {
       .pipe(livereload());
 });
 
-gulp.task('react', function() {
-  browserify(mainJs)
-      .transform("babelify", {presets: ['es2015', 'react']})
-      .bundle()
-      .pipe(fs.createWriteStream("bundle.js"));
-});
+var bab = babelify.configure({presets: ['es2015', 'react']});
 
+gulp.task('react', function() {
+  gulp.src(mainJs).pipe(
+      browserify({
+        transform: [bab]
+      })
+  ).pipe(rename({
+    extname: '.bundle.js'
+  })).pipe(gulp.dest('./dist/'));
+
+});
 
 
 gulp.task('default', function() {

@@ -3,3 +3,7 @@ body {
   background-color: $bodyBG;
   color: darken($bodyBG, 50);
 }
+
+img {
+  max-width: 80px;
+}
