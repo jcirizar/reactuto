@@ -10,7 +10,6 @@ var gulp = require('gulp'),
 
 var babelify = require('babelify');
 var browserify = require('gulp-browserify');
-var fs = require('fs');
 var rename = require('gulp-rename');
 
 var scssAssets = './styles.scss';
@@ -28,7 +27,7 @@ gulp.task('sass', function() {
   return gulp.src(scssAssets)
       .pipe(sass().on('error', sass.logError))
       .pipe(postcss(processors))
-      .pipe(gulp.dest('.'))
+      .pipe(gulp.dest('./css/'))
       .pipe(livereload());
 });
 
