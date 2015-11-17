@@ -8,10 +8,8 @@ var gulp = require('gulp'),
     csswring = require('csswring'),
     livereload = require('gulp-livereload');
 
-var browserify = require("browserify");
-var babelify = require('babelify');
+var browserify = require('browserify');
 var fs = require('fs');
-
 
 var scssAssets = './styles.scss';
 var mainJs = "./src/script.jsx";
@@ -34,10 +32,11 @@ gulp.task('sass', function() {
 
 gulp.task('react', function() {
   browserify(mainJs)
-      .transform("babelify", {presets: ["react"]})
+      .transform("babelify", {presets: ['es2015', 'react']})
       .bundle()
       .pipe(fs.createWriteStream("bundle.js"));
 });
+
 
 
 gulp.task('default', function() {
