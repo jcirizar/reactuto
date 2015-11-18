@@ -54,6 +54,12 @@ body {
     line-height: 0;
     margin: 0;
     @include noSelect;
+
+    &:disabled {
+      cursor: not-allowed;
+      color: #dcdcdc;
+      border-color: #dcdcdc;
+    }
   }
 }
 
